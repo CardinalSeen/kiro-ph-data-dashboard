@@ -391,3 +391,239 @@ tbody tr:hover {
     height: 250px;
   }
 }
+
+
+/* ═══ Map Section ═══ */
+.map-section {
+  margin: 2rem 0;
+}
+
+.map-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .map-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.map-container {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.map-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.map-note {
+  font-size: 0.75rem;
+  color: #888;
+  font-style: italic;
+}
+
+.map-wrapper {
+  height: 450px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+
+.map-loading {
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  border-radius: 12px;
+  color: #666;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  color: #555;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+}
+
+/* Leaflet tooltip override */
+.region-tooltip {
+  background: white !important;
+  border: 1px solid #ddd !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.region-tooltip .leaflet-tooltip-content {
+  margin: 0;
+}
+
+.map-tooltip {
+  padding: 0.75rem;
+  min-width: 200px;
+  font-size: 0.8rem;
+}
+
+.map-tooltip strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.map-tooltip hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 0.4rem 0;
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.1rem 0;
+}
+
+.tooltip-val {
+  font-weight: 600;
+}
+
+.tooltip-sub {
+  margin-top: 0.3rem;
+  color: #888;
+  font-size: 0.72rem;
+}
+
+/* ═══ Insight Card ═══ */
+.insight-card {
+  background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+  border: 2px solid #0066cc;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.insight-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.insight-icon {
+  font-size: 1.5rem;
+}
+
+.insight-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #555;
+}
+
+.insight-body {
+  margin-bottom: 1.2rem;
+}
+
+.insight-region {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 0.2rem;
+}
+
+.insight-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0066cc;
+  margin-bottom: 0.2rem;
+}
+
+.insight-pct {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+}
+
+.insight-bar {
+  height: 8px;
+  background: #e8e8e8;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.insight-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0066cc, #0044aa);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.insight-gap {
+  font-size: 0.8rem;
+  color: #888;
+  padding: 0.4rem 0.6rem;
+  background: #f0f4ff;
+  border-radius: 6px;
+}
+
+.insight-tied .insight-region {
+  color: #e65100;
+}
+
+.insight-footer {
+  display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e8e8e8;
+}
+
+.insight-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.insight-stat-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.insight-stat-label {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+}

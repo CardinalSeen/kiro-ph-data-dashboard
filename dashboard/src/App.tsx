@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { useDuckDB } from './hooks/useDuckDB';
+import { useBudgetMap } from './hooks/useBudgetMap';
 import { SummaryCards } from './components/SummaryCards';
 import { DepartmentChart } from './components/DepartmentChart';
 import { ExpenseChart } from './components/ExpenseChart';
 import { DrillDown } from './components/DrillDown';
 import { BudgetTable } from './components/BudgetTable';
+import { RegionInsightCard } from './components/RegionInsightCard';
 import './App.css';
+
+const RegionMap = lazy(() =>
+  import('./components/RegionMap').then((m) => ({ default: m.RegionMap }))
+);
 
 function App() {
   const { loading, error, query } = useDuckDB();
   const [selectedDept, setSelectedDept] = useState<string | null>(null);
+  const mapData = useBudgetMap(query);
 
   if (loading) {
     return (
@@ -51,6 +58,29 @@ function App() {
           <DepartmentChart query={query} onDepartmentClick={setSelectedDept} />
           <ExpenseChart query={query} />
         </div>
+
+        {/* Regional Map Section */}
+        <section className="map-section">
+          <div className="map-row">
+            <Suspense fallback={<div className="map-loading">Loading map...</div>}>
+              {mapData.geojson && (
+                <RegionMap
+                  geojson={mapData.geojson}
+                  regions={mapData.regions}
+                  nationalTotal={mapData.nationalTotal}
+                  onRegionClick={(id) => {
+                    const region = mapData.regions.find((r) => r.region_id === id);
+                    if (region) setSelectedDept(region.region_short);
+                  }}
+                />
+              )}
+            </Suspense>
+            <RegionInsightCard
+              regions={mapData.regions}
+              nationalTotal={mapData.nationalTotal}
+            />
+          </div>
+        </section>
 
         {selectedDept && (
           <DrillDown

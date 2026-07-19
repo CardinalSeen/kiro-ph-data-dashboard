@@ -13,6 +13,7 @@ const PARQUET_FILES = [
   'agg_department.parquet',
   'agg_expense.parquet',
   'agg_agency.parquet',
+  'agg_region.parquet',
 ];
 
 export function useDuckDB() {

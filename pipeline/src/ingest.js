@@ -203,6 +203,29 @@ async function main() {
   const [{ agy_cnt }] = await all('SELECT COUNT(*) as agy_cnt FROM agg_agency');
   console.log(`  ✓ agg_agency.parquet (${Number(agy_cnt)} rows)`);
 
+  // Region-level aggregation (for choropleth map)
+  await run(`
+    CREATE TABLE agg_region AS
+    SELECT
+      region_id,
+      COUNT(*) AS line_items,
+      SUM(amount_php) AS total_php,
+      SUM(CASE WHEN expense_category = 'PS' THEN amount_php ELSE 0 END) AS ps_php,
+      SUM(CASE WHEN expense_category = 'MOOE' THEN amount_php ELSE 0 END) AS mooe_php,
+      SUM(CASE WHEN expense_category = 'CO' THEN amount_php ELSE 0 END) AS co_php,
+      SUM(CASE WHEN expense_category = 'FE' THEN amount_php ELSE 0 END) AS fe_php,
+      COUNT(DISTINCT department_short) AS department_count,
+      COUNT(DISTINCT agency_name) AS agency_count
+    FROM budget
+    GROUP BY region_id
+    ORDER BY total_php DESC
+  `);
+
+  const regionPath = path.join(OUTPUT_DIR, 'agg_region.parquet');
+  await run(`COPY agg_region TO '${regionPath}' (FORMAT PARQUET, COMPRESSION ZSTD)`);
+  const [{ reg_cnt }] = await all('SELECT COUNT(*) as reg_cnt FROM agg_region');
+  console.log(`  ✓ agg_region.parquet (${Number(reg_cnt)} regions)`);
+
   // ─── Step 6: Verification queries ──────────────────────────────────
   console.log('\n▶ Step 6: Verification...');
 
@@ -229,6 +252,7 @@ async function main() {
   console.log('  • agg_department.parquet  — dept aggregates');
   console.log('  • agg_expense.parquet     — expense class totals');
   console.log('  • agg_agency.parquet      — agency breakdown');
+  console.log('  • agg_region.parquet      — regional aggregates (for map)');
 
   db.close();
 }
