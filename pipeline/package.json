@@ -1,0 +1,19 @@
+{
+  "name": "pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/ingest.js",
+    "inspect": "node src/inspect.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "duckdb": "^1.4.4",
+    "xlsx": "^0.18.5"
+  }
+}

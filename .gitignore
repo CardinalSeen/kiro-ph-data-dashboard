@@ -1,0 +1,11 @@
+# Raw data (too large for GitHub)
+FY2026_GAA.xlsx
+
+# Dependencies
+node_modules/
+
+# Build output
+dashboard/dist/
+
+# OS files
+.DS_Store
