@@ -1,5 +1,6 @@
 # Raw data (too large for GitHub)
 FY2026_GAA.xlsx
+pipeline/output/cleaned_gaa_2026.csv
 
 # Dependencies
 node_modules/

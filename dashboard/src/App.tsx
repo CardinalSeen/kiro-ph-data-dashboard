@@ -7,6 +7,13 @@ import { ExpenseChart } from './components/ExpenseChart';
 import { DrillDown } from './components/DrillDown';
 import { BudgetTable } from './components/BudgetTable';
 import { RegionInsightCard } from './components/RegionInsightCard';
+import {
+  TopAllocationsChart,
+  BudgetCompositionDonut,
+  RegionalDistributionChart,
+  SpecialFundsChart,
+  MacroInsightsPanel,
+} from './components/analytics';
 import './App.css';
 
 const RegionMap = lazy(() =>
@@ -93,6 +100,18 @@ function App() {
         <section className="table-section">
           <h2>📋 Budget Line Items {selectedDept ? `— ${selectedDept}` : ''}</h2>
           <BudgetTable query={query} departmentFilter={selectedDept ?? undefined} />
+        </section>
+
+        {/* Analytics Workshop Layers */}
+        <section className="analytics-section">
+          <h2>📈 Executive Analytics</h2>
+          <div className="analytics-grid">
+            <TopAllocationsChart query={query} />
+            <BudgetCompositionDonut query={query} />
+          </div>
+          <RegionalDistributionChart query={query} />
+          <SpecialFundsChart query={query} />
+          <MacroInsightsPanel query={query} />
         </section>
       </main>
 

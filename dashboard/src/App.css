@@ -627,3 +627,150 @@ tbody tr:hover {
   color: #888;
   text-transform: uppercase;
 }
+
+
+/* ═══ Analytics Section ═══ */
+.analytics-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid #e8e8e8;
+}
+
+.analytics-section h2 {
+  margin-bottom: 1.5rem;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.analytics-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.analytics-header h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: #1a1a2e;
+}
+
+.analytics-insight {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  padding: 0.6rem 0.8rem;
+  background: #f8fafc;
+  border-left: 3px solid #0F766E;
+  border-radius: 4px;
+}
+
+.analytics-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.analytics-toggle button {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f8f9fa;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.15s;
+}
+
+.analytics-toggle button.active {
+  background: #1E3A8A;
+  color: white;
+  border-color: #1E3A8A;
+}
+
+.chart-loading {
+  padding: 3rem;
+  text-align: center;
+  color: #888;
+}
+
+/* Macro Insights Panel */
+.macro-panel {
+  border: 2px solid #1E3A8A;
+}
+
+.macro-text {
+  font-size: 0.9rem;
+  border-left-color: #1E3A8A;
+}
+
+.macro-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .macro-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.macro-kpi {
+  text-align: center;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.macro-kpi-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1E3A8A;
+}
+
+.macro-kpi-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  margin-top: 0.2rem;
+}
+
+.tier-detail {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.tier-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.4rem 0;
+  font-size: 0.8rem;
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.tier-name {
+  font-weight: 600;
+  color: #1E3A8A;
+  min-width: 200px;
+}
+
+.tier-depts {
+  color: #64748b;
+}
