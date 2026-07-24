@@ -1,126 +1,48 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState } from 'react';
 import { useDuckDB } from './hooks/useDuckDB';
-import { useBudgetMap } from './hooks/useBudgetMap';
-import { SummaryCards } from './components/SummaryCards';
-import { DepartmentChart } from './components/DepartmentChart';
-import { ExpenseChart } from './components/ExpenseChart';
-import { DrillDown } from './components/DrillDown';
-import { BudgetTable } from './components/BudgetTable';
-import { RegionInsightCard } from './components/RegionInsightCard';
-import {
-  TopAllocationsChart,
-  BudgetCompositionDonut,
-  RegionalDistributionChart,
-  SpecialFundsChart,
-  MacroInsightsPanel,
-} from './components/analytics';
+import { Sidebar } from './components/layout/Sidebar';
+import { OperationalDashboard } from './views/OperationalDashboard';
+import { RegionalMapView } from './views/RegionalMapView';
+import { ExecutiveAnalysis } from './views/ExecutiveAnalysis';
 import './App.css';
-
-const RegionMap = lazy(() =>
-  import('./components/RegionMap').then((m) => ({ default: m.RegionMap }))
-);
 
 function App() {
   const { loading, error, query } = useDuckDB();
-  const [selectedDept, setSelectedDept] = useState<string | null>(null);
-  const mapData = useBudgetMap(query);
+  const [activeView, setActiveView] = useState('dashboard');
 
   if (loading) {
     return (
-      <div className="loading-screen">
-        <div className="spinner" />
-        <p>Initializing DuckDB-WASM and loading budget data...</p>
+      <div className="flex items-center justify-center min-h-screen bg-surface-alt">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 border-4 border-border-subtle border-t-brand-primary rounded-full animate-spin mx-auto" />
+          <div>
+            <p className="text-sm font-medium text-text-primary">Initializing DuckDB-WASM</p>
+            <p className="text-xs text-text-muted mt-1">Loading Philippine budget data...</p>
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="error-screen">
-        <h2>Failed to load data</h2>
-        <pre>{error}</pre>
+      <div className="flex items-center justify-center min-h-screen bg-surface-alt">
+        <div className="bg-surface border border-negative/30 rounded-xl p-6 max-w-md">
+          <h2 className="text-base font-bold text-negative mb-2">Data Load Error</h2>
+          <pre className="text-xs text-text-secondary bg-surface-alt p-3 rounded overflow-auto">{error}</pre>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>🇵🇭 Philippine FY2026 National Budget Dashboard</h1>
-        <p className="subtitle">
-          General Appropriations Act — Interactive Explorer
-          {selectedDept && (
-            <span className="active-filter">
-              {' '}• Filtered: <strong>{selectedDept}</strong>
-              <button className="btn-clear" onClick={() => setSelectedDept(null)}>✕</button>
-            </span>
-          )}
-        </p>
-      </header>
-
-      <main>
-        <SummaryCards query={query} />
-
-        <div className="charts-row">
-          <DepartmentChart query={query} onDepartmentClick={setSelectedDept} />
-          <ExpenseChart query={query} />
-        </div>
-
-        {/* Regional Map Section */}
-        <section className="map-section">
-          <div className="map-row">
-            <Suspense fallback={<div className="map-loading">Loading map...</div>}>
-              {mapData.geojson && (
-                <RegionMap
-                  geojson={mapData.geojson}
-                  regions={mapData.regions}
-                  nationalTotal={mapData.nationalTotal}
-                  onRegionClick={(id) => {
-                    const region = mapData.regions.find((r) => r.region_id === id);
-                    if (region) setSelectedDept(region.region_short);
-                  }}
-                />
-              )}
-            </Suspense>
-            <RegionInsightCard
-              regions={mapData.regions}
-              nationalTotal={mapData.nationalTotal}
-            />
-          </div>
-        </section>
-
-        {selectedDept && (
-          <DrillDown
-            query={query}
-            department={selectedDept}
-            onClose={() => setSelectedDept(null)}
-          />
-        )}
-
-        <section className="table-section">
-          <h2>📋 Budget Line Items {selectedDept ? `— ${selectedDept}` : ''}</h2>
-          <BudgetTable query={query} departmentFilter={selectedDept ?? undefined} />
-        </section>
-
-        {/* Analytics Workshop Layers */}
-        <section className="analytics-section">
-          <h2>📈 Executive Analytics</h2>
-          <div className="analytics-grid">
-            <TopAllocationsChart query={query} />
-            <BudgetCompositionDonut query={query} />
-          </div>
-          <RegionalDistributionChart query={query} />
-          <SpecialFundsChart query={query} />
-          <MacroInsightsPanel query={query} />
-        </section>
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar activeView={activeView} onNavigate={setActiveView} />
+      <main className="flex-1 overflow-hidden flex flex-col">
+        {activeView === 'dashboard' && <OperationalDashboard query={query} />}
+        {activeView === 'map' && <RegionalMapView query={query} />}
+        {activeView === 'executive' && <ExecutiveAnalysis query={query} />}
       </main>
-
-      <footer className="app-footer">
-        <p>
-          Data source: FY2026 General Appropriations Act (GAA) • 
-          Powered by DuckDB-WASM • All queries run client-side
-        </p>
-      </footer>
     </div>
   );
 }
