@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node src/ingest.js",
     "inspect": "node src/inspect.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "validate": "node src/validate.js",
+    "workshop:audit": "node workshop/01_audit.js",
+    "workshop:clean": "node workshop/02_clean_export.js",
+    "test": "node src/validate.js"
   },
   "keywords": [],
   "author": "",

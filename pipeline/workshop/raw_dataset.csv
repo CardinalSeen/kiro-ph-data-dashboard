@@ -1,0 +1,16 @@
+id,department,agency,  amount ,category,region
+1,  DepEd ,Office of the Secretary,"1,250,000",Personnel Services,NCR
+2,deped,Office of the Secretary,980000,personnel services,ncr
+3,DPWH,Bureau of Design ,"2,400,000.50",Capital Outlays,Region III
+4,DPWH,Bureau of Design,2400000.50,capital outlays,region iii
+5,DOH,,750000,MOOE,Region VII
+6,DOH,Center for Health,,mooe,Region VII
+7,  DILG,Philippine National Police,"89,109,122",Personnel Services,NCR
+8,DILG,Philippine National Police,89109122,PERSONNEL SERVICES,ncr
+9,DSWD,Office of the Secretary,"1,500,000",Capital Outlays,
+10,DSWD ,Office of the Secretary,1500000,Capital Outlays,Region IV-A
+11,DA,Bureau of Fisheries,N/A,MOOE,Region II
+12,DA,Bureau of Fisheries,320000,mooe,region ii
+13,DepEd,,450000,,NCR
+14,DepEd,Office of the Secretary,"1,250,000",Personnel Services,NCR
+15,BSGC,PhilHealth,"60,000,000",MOOE,NCR
