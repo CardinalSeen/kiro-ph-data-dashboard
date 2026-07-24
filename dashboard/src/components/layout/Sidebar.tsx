@@ -5,6 +5,7 @@ interface Props {
 
 const NAV_ITEMS = [
   { id: 'dashboard', label: 'Operational Dashboard', icon: '📊', desc: 'Daily monitoring' },
+  { id: 'budget', label: 'Budget Line Items', icon: '💰', desc: 'Financial data table' },
   { id: 'map', label: 'Regional Map', icon: '🗺️', desc: 'Spatial analytics' },
   { id: 'executive', label: 'Executive Analysis', icon: '📈', desc: 'Strategic insights' },
 ];
